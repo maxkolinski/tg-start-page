@@ -1,6 +1,23 @@
 [build]
-  command = "solid-start build"
-  functions = "netlify/functions"
-  publish = "netlify"
+  publish = "dist/"
+  command = "NODE_ENV=development npm ci && npm run build"
+  environment = { TZ = "America/Chicago" }
 
-  ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
+[context.old]
+  publish = "/"
+  command = ""
+
+[[redirects]]
+  from = "/send/*"
+  to = "https://dpaste.com/api/v2/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/receive/*"
+  to = "https://dpaste.com/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
